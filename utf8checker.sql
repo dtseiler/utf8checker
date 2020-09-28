@@ -1,6 +1,6 @@
 begin;
 
-create schema utf8checker;
+create schema if not exists utf8checker;
 set search_path = utf8checker;
 
 create or replace function utf8_report_error (in toid oid, in str bytea) 
@@ -14,19 +14,6 @@ begin
 end;
 $$
 language plpgsql;
-
-
-create or replace function utf8chk (bytea, oid)
-returns boolean
-as $$
-   select case when utf8hex_valid(encode($1,'hex'))
-               then false
-               else utf8_report_error($2,$1)
-          end
-$$
-immutable
-language sql
-;
 
 
 create or replace function utf8hex_valid (text)
@@ -50,4 +37,17 @@ immutable
 language sql
 ;
 
+
+
+create or replace function utf8chk (bytea, oid)
+returns boolean
+as $$
+   select case when utf8checker.utf8hex_valid(encode($1,'hex'))
+               then false
+               else utf8checker.utf8_report_error($2,$1)
+          end
+$$
+immutable
+language sql
+;
 commit;
