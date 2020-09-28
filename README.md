@@ -1,18 +1,17 @@
-utf8checker
-----------
+# utf8checker
 
-* synopsis: 
+## synopsis: 
 	simple tools for finding invlalid utf8 data in older postgres databses
 
-* version:
+## version:
 	http://www.github.com/xzilla/utf8checker
 
-* docs:
+## docs:
 	see HOWTO file
 
-* credits:
+## credits:
 	Andrew Gierth
 	Robert Treat
 
-* license:
+## license:
 	This code is made available under a BSD license. Use it as you want, just don't sue us.  
