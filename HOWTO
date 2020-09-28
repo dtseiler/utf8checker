@@ -1,10 +1,15 @@
 To generate the proper commands, you first run this SQL:
 
-select oid::Regclass, reltuples, relpages, 'select every(utf8chk(textsend(textin(record_out(t))),'||oid::text||')) from '||relname||' t;' from pg_class where relkind = 'r' order by relpages ;
+select oid::Regclass, 
+    reltuples, 
+    relpages, 
+    'select every(utf8checker.utf8chk(textsend(textin(record_out(t))),'||oid::text||')) from '||relname||' t;'
+from pg_class where relkind = 'r' order by relpages ;
 
 This will give you a listing of all of the tables in the database (including system tables), along with a column containing a command the will look like this:
 
-select every(utf8chk(textsend(textin(record_out(t))),27171)) from ss_settings t;
+select every(utf8checker.utf8chk(textsend(textin(record_out(t))),27171))
+from ss_settings t;
 
 You need to run all of these commands, which will check each table in the database. (You can probably skip system tables though, they should be ok)
 
